@@ -1,18 +1,27 @@
-import { Request, Response } from "express-serve-static-core";
-import { createUserDto } from "../dtos/CreateUser.dto";
-import { User } from "../types/response";
+import { NextFunction, Request, Response } from "express";
+import { User } from "../models/users";
 
-export function getUsers(req:Request,res:Response){
-    res.send(["helloo","fun"])
+type QueryType = {
+  secret?: string;
+};
+export const getUsers = async (
+  req: Request<{}, {}, {}, QueryType>,
+  res: Response,
+  next: NextFunction
+) => {
+    if(req.query.secret === "suspicioushill" ){
+        const users = await User.find();
+        return res.status(200).send({message:"suceess", data:users})
+    }
 }
 
-export function getUserById(req:Request,res:Response){
+// export function getUserById(req:Request,res:Response){
 
-    res.send({})
-}
+//     res.send({})
+// }
 
-export function createUser(req:Request<{},{}, createUserDto>,res:Response<User>){
-    req.body.email;
+// export function createUser(req:Request<{},{}, createUserDto>,res:Response<User>){
+  
 
-    res.status(201).send({email:"",id:1,username:""})
-}
+//     res.status(201).send({email:"",id:1,username:""})
+// }

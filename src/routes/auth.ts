@@ -3,14 +3,13 @@ import passport from "passport";
 
  const authRouter = Router();
 
-authRouter.get("/google", passport.authenticate("google"));
+authRouter.get("/auth/google", passport.authenticate("google"));
 
 authRouter.get(
-  "/google/callback",
-  passport.authenticate("google"),
-  (request, response) => 
-  {
-    return response.sendStatus(200);
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (request, response) => {
+    response.redirect("/");
   }
   
 );

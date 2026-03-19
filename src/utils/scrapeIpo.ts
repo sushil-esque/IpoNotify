@@ -52,6 +52,8 @@ export async function addIpos(req: Request, res: Response) {
   try {
     // await mongoose.connect(DB_URL);
     const ipos = await getIpos();
+    console.log(ipos);
+    
     const ipoNames = ipos.map((el) => el.name);
     const matchedIpos = await Ipos.find({ name: { $in: ipoNames } });
 

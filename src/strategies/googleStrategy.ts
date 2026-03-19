@@ -1,19 +1,15 @@
 import passport from "passport";
 import passportGoogle from "passport-google-oauth2"
-import { User } from "../models/users";
+import { User, IUser } from "../models/users";
 import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 const GoogleStrategy = passportGoogle.Strategy;
 
-// interface User{
-//      googleId: string
-//     email: string
-//     password:string
-// }
 
-passport.serializeUser((user: any, done) => {
+
+passport.serializeUser((user: Express.User, done) => {
   console.log(`Inside Serilize User`);
   console.log(user);
   done(null, user.id);
@@ -21,13 +17,14 @@ passport.serializeUser((user: any, done) => {
 
 passport.deserializeUser(async (id, done) => {
   console.log(`Inside Deserializer`);
-  console.log(`Deserializing User id: ${id}`);
+  console.log(`Deserializing User id: ${id}`);    
   try {
-    const findUser = await User.findById(id);
+    const findUser = await User.findById(id).lean();
     if (!findUser) {
       return done(null, null);
     }
-    return done(null, findUser);
+    const user = { ...findUser, id: findUser._id.toString() };
+    return done(null, user);
   } catch (err) {
     return done(err, null);
   }
@@ -52,7 +49,7 @@ export default passport.use(
       if (!findUser) {
         const newUser = new User({
           googleId: profile.id,          // Google's unique ID for this user
-          email: profile.email,          // Email address from Google profile
+          email: profile.emails?.[0]?.value,          // Email address from Google profile
         });
         try {
           const newSavedUser = await newUser.save();
