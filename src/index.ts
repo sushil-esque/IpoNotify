@@ -2,30 +2,34 @@ import dotenv from "dotenv";
 
 dotenv.config();
 import express from "express";
-import usersRouter from "./routes/users"
-import iposRouter from "./routes/ipos"
-import authRouter from "./routes/auth"
-import scrapeRouter from "./routes/scrapeIpos"
-import sendMailsRouter from "./routes/sendMails"
-import getUsersRouter from "./routes/users"
+import iposRouter from "./routes/ipos";
+import authRouter from "./routes/auth";
+import scrapeRouter from "./routes/scrapeIpos";
+import sendMailsRouter from "./routes/sendMails";
+import usersRouter from "./routes/users";
 
 import session from "express-session";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import passport from "passport";
-import "./strategies/googleStrategy"
+import "./strategies/googleStrategy";
 import { errorHandler } from "./middlewares/errorHandler";
-
+import cors from "cors";
 const app = express();
-const DB_URL = process.env.MONGO_URL as string
-mongoose.connect(DB_URL)
-.then(()=>console.log("connected to database"))
-.catch((err)=>{
+const DB_URL = process.env.MONGO_URL as string;
+mongoose
+  .connect(DB_URL)
+  .then(() => console.log("connected to database"))
+  .catch((err) => {
     console.log(err);
-    
-});
+  });
 
-
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 
@@ -57,13 +61,12 @@ app.use(passport.session());
 
 const PORT = 3000;
 
-
-app.use(authRouter)
-app.use(iposRouter)
-app.use(scrapeRouter)
-app.use(sendMailsRouter)
-app.use(getUsersRouter)
-app.use(errorHandler)
-app.listen(PORT,()=>{
-    console.log(`server running on port ${PORT}`)
-})
+app.use(authRouter);
+app.use(iposRouter);
+app.use(scrapeRouter);
+app.use(sendMailsRouter);
+app.use(usersRouter);
+app.use(errorHandler);
+app.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`);
+});
