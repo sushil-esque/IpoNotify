@@ -6,7 +6,6 @@ import { asyncHandler } from "../middlewares/asyncHandler";
 export const getCurrentIpos = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const ipos = await Ipos.find({ status: "open" });
-    if (ipos.length < 1) throw new customError("error", 400);
     const currentIpos = ipos.filter(
       (ipo) => ipo.openDate <= new Date() && ipo.closeDate >= new Date(),
     );

@@ -39,7 +39,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     cookie: {
-      maxAge: 60000 * 60 * 24, // 1 day
+      maxAge: 60000 , // 1 day
       // Only send cookie over HTTPS in production.
       // Must be true when using sameSite: "none"
       secure: process.env.NODE_ENV === "production",

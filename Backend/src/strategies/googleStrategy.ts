@@ -50,13 +50,22 @@ export default passport.use(
         const newUser = new User({
           googleId: profile.id,          // Google's unique ID for this user
           email: profile.emails?.[0]?.value,          // Email address from Google profile
+          name: profile.displayName,
+          picture: profile.photos?.[0]?.value,
         });
         try {
           const newSavedUser = await newUser.save();
-          done(null, newSavedUser);
+          return done(null, newSavedUser);
         } catch (err) {
           console.log(err);
           return done(err, null);
+        }
+      } else {
+        // Update user if name or picture is missing
+        if (!findUser.name || !findUser.picture) {
+           findUser.name = profile.displayName;
+           findUser.picture = profile.photos?.[0]?.value;
+           await findUser.save();
         }
       }
       return done(null, findUser);
