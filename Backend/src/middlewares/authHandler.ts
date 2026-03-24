@@ -5,10 +5,14 @@ export const protect = async (
   res: Response,
   next: NextFunction,
 ) => {
+  console.log(`[DEBUG] Protect Middleware: isAuthenticated: ${typeof req.isAuthenticated === 'function' ? req.isAuthenticated() : 'N/A'}, hasUser: ${!!req.user}`);
+  
   if (req && typeof req.isAuthenticated === "function") {
     if (req.isAuthenticated()) return next();
   }
   if (req && req.user) return next();
+  
+  console.log(`[DEBUG] Protect Middleware: Access Denied (401)`);
   return res.status(401).send({ message: "session expired" });
 };
 
