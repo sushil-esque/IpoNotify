@@ -58,6 +58,7 @@ app.use(
       // Force Secure and SameSite: none for cross-domain (Vercel -> Render)
       secure: process.env.NODE_ENV === "production" || !!process.env.RENDER,
       sameSite: (process.env.NODE_ENV === "production" || !!process.env.RENDER) ? "none" : "lax",
+      partitioned: (process.env.NODE_ENV === "production" || !!process.env.RENDER),
       httpOnly: true,
     },
     store: MongoStore.create({
