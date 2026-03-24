@@ -202,7 +202,7 @@ function Navbar() {
             </DropdownMenu>
           ) : (
             <a
-              href={`${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/"}auth/google`}
+              href="/api/auth/google"
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#5177f6] hover:bg-[#3d5fd4]
                 text-white text-sm font-semibold shadow-md hover:shadow-[#5177f6]/40
                 hover:scale-105 active:scale-95 transition-all duration-200"

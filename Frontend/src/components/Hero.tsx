@@ -95,7 +95,7 @@ function Hero() {
         ) : (
           /* Logged-out state */
           <a
-            href={`${import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/"}auth/google`}
+            href="/api/auth/google"
             className="group flex items-center gap-3 bg-white dark:bg-[#1a1a2e] border border-gray-300 dark:border-gray-600 rounded-full px-6 py-3 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             {/* Google Logo */}

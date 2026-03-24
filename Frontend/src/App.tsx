@@ -48,7 +48,7 @@ function App() {
               Never want to miss an ipo again?
             </h2>
             <a
-              href={`${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/"}auth/google`}
+              href="/api/auth/google"
               className="flex items-center gap-3 px-10 py-4 bg-[#5177f6] hover:bg-[#3d5fd4] text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#5177f6]/40 hover:scale-105 transition-all duration-300 text-lg"
             >
               <div className="bg-white p-1 rounded-full flex items-center justify-center">
