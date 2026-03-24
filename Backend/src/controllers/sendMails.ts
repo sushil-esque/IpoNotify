@@ -7,6 +7,11 @@ import dotenv from "dotenv";
 import path from "path";
 import { asyncHandler } from "../middlewares/asyncHandler";
 import nodemailer from "nodemailer";
+import dns from "dns";
+
+// Force Node.js to use IPv4 instead of IPv6 for DNS resolution
+// This prevents the ENETUNREACH error on environments like Render
+dns.setDefaultResultOrder("ipv4first");
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
