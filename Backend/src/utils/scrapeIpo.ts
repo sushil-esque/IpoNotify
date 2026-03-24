@@ -2,12 +2,8 @@ import axios from "axios";
 import { load } from "cheerio";
 import { IPOS } from "../dtos/Ipos.dto";
 import { Ipos } from "../models/ipos";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import path from "path";
 import { Request, Response } from "express";
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 const url = "https://cdsc.com.np/ipolist";
 // const DB_URL = process.env.MONGO_URL!;
 // if (!DB_URL) {

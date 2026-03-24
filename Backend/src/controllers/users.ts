@@ -1,8 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { User } from "../models/users";
-import dotenv from "dotenv";
-import path from "path";
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 type QueryType = {
   secret?: string;
 };

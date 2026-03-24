@@ -1,10 +1,7 @@
 import passport from "passport";
 import passportGoogle from "passport-google-oauth2"
 import { User, IUser } from "../models/users";
-import dotenv from "dotenv";
-import path from "path";
 
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 const GoogleStrategy = passportGoogle.Strategy;
 
 
@@ -34,7 +31,7 @@ export default passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: "http://localhost:5000/auth/google/callback",
+      callbackURL: "https://iponotify-cx4r.onrender.com/auth/google/callback",
       scope: ["profile", "email"]
     },
   async (acessToken, refreshToken, profile, done) => {

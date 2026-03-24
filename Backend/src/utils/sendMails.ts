@@ -1,8 +1,4 @@
 import sgMail from "@sendgrid/mail";
-import dotenv from "dotenv";
-import path from "path";
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 const msg = {
   to: ["soucesil1@gmail.com", "suspicioushill@gmail.com"],

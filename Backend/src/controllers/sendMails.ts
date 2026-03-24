@@ -3,12 +3,8 @@ import { Ipos } from "../models/ipos";
 import { customError } from "../utils/customErrorClass";
 import { User } from "../models/users";
 import sgMail from "@sendgrid/mail";
-import dotenv from "dotenv";
-import path from "path";
 import { asyncHandler } from "../middlewares/asyncHandler";
 import { google } from "googleapis";
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 type QueryType = {
   secret?: string;
