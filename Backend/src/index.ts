@@ -23,12 +23,24 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-  const frontendUrl = process.env.CLIENT_URL || "http://localhost:5173";
-
+const frontendUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  frontendUrl.replace(/\/$/, ""), // Ensure no trailing slash
+];
 
 app.use(
   cors({
-    origin: frontendUrl,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
@@ -40,17 +52,12 @@ app.use(
     secret: process.env.SESSION_SECRET as string,
     saveUninitialized: false,
     resave: false,
+    proxy: true, // Required for some proxy setups to trust Secure cookies
     cookie: {
-      maxAge: 60000 *60* 24 * 7,
-      // Only send cookie over HTTPS in production.
-      // Must be true when using sameSite: "none"
-       // If we are on Render (proxy) or production, force Secure/None
+      maxAge: 60000 * 60 * 24 * 7,
+      // Force Secure and SameSite: none for cross-domain (Vercel -> Render)
       secure: process.env.NODE_ENV === "production" || !!process.env.RENDER,
-      // Allow cookie to be sent from backend (Render)
-      // to frontend on a different domain (Vercel).
-      // Chrome requires "none" and secure: true for this.
       sameSite: (process.env.NODE_ENV === "production" || !!process.env.RENDER) ? "none" : "lax",
-      // Prevent javascript from accessing the cookie (extra security)
       httpOnly: true,
     },
     store: MongoStore.create({
