@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://iponotify-cx4r.onrender.com/:path*"
+    }
+  ]
+}
