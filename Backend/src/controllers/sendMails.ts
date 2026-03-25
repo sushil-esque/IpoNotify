@@ -164,7 +164,7 @@ export const sendMailsByGoogle = asyncHandler(
       res
         .status(200)
         .json({ message: "Emails sent successfully using Gmail API" });
-    } catch (err) {
+    } catch (err:any) {
       console.error("Gmail API Error:", err);
       res
         .status(500)
