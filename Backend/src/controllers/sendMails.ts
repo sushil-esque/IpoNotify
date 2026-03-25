@@ -130,8 +130,8 @@ export const sendMailsByGoogle = asyncHandler(
     const subject = `🚀 IPO Alert: ${IposToSendToday.length} Update(s) for Today!`;
     const htmlMessage = `
     <div style="font-family: Arial, sans-serif;">
-      <h2>📢 Current IPO alerts</h2>
-      <p>Here are the IPOs you can apply for right now:</p>
+      <h2>📢 IPO alerts for you</h2>
+      <p>Here are the IPOs opening or closing today:</p>
       <ul style="list-style-type: none; padding: 0;">${ipoList}</ul>
       <p>Don't miss the deadlines!</p>
       <hr/>
