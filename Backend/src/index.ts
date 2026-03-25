@@ -72,6 +72,9 @@ app.use(passport.session());
 
 const PORT = process.env.PORT || 5000;
 
+app.get("/", (req, res) => {
+  res.send("Hello World from ipo notify!");
+});
 app.use(authRouter);
 app.use(iposRouter);
 app.use(scrapeRouter);

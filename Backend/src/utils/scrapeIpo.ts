@@ -2,13 +2,9 @@ import axios from "axios";
 import { load } from "cheerio";
 import { IPOS } from "../dtos/Ipos.dto";
 import { Ipos } from "../models/ipos";
-import mongoose from "mongoose";
 import { Request, Response } from "express";
 const url = "https://cdsc.com.np/ipolist";
-// const DB_URL = process.env.MONGO_URL!;
-// if (!DB_URL) {
-//   throw new Error("MONGO_URL not defined");
-// }
+
 type QueryType = {
   secret?: string;
 };
@@ -46,7 +42,7 @@ export async function getIpos(): Promise<IPOS[]> {
   }
 }
 
-export async function addIpos(req: Request, res: Response) {
+export async function addIpos(req: Request<{}, {}, {}, QueryType>, res: Response) {
   if (req.query.secret === process.env.QUERY_SECRET) {
     try {
       // await mongoose.connect(DB_URL);
