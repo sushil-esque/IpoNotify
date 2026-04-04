@@ -69,7 +69,7 @@ export const sendMailsByGoogle = asyncHandler<{}, {}, {}, QueryType>(
         999,
       ),
     );
-
+    console.log(startOfToday, endOfToday);
     // Get IPOs that are strictly opening today OR closing today
     const IposToSendToday = await Ipos.find({
       $or: [
@@ -181,7 +181,11 @@ export const sendMailsByGoogle = asyncHandler<{}, {}, {}, QueryType>(
       <ul style="list-style-type: none; padding: 0;">${ipoListt(IposToSend)}</ul>
       <p>Don't miss the deadlines!</p>
       <hr/>
-      <small>This is an automated reminder.</small>
+      <small style="color: #666;">
+        You are receiving this because you signed up for IPO Notify.<br/>
+        Want to change your alerts or stop receiving these emails? 
+        <a href="https://ipo-notify.vercel.app/" style="color: #5177f6;">Manage your subscription preferences here</a>.
+      </small>
     </div>
   `;
     };

@@ -29,6 +29,7 @@ const CATEGORY_OPTIONS = [
   { value: "foreign_employment", label: "Foreign Employment" },
   { value: "reserved", label: "Reserved" },
   { value: "all", label: "All IPOs" },
+  { value: "none", label: "Mute All Alerts" },
 ];
 
 export function SubscriptionModal({ open, onOpenChange }: SubscriptionModalProps) {

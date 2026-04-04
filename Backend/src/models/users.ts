@@ -44,7 +44,7 @@ const userSchema = new Schema<IUser>(
     },
     subscribedCategory: {
       type: String,
-      enum: ["general_public", "foreign_employment", "reserved", "all"],
+      enum: ["general_public", "foreign_employment", "reserved", "all", "none"],
       default: "general_public",
     },
   },
