@@ -17,12 +17,14 @@ import { errorHandler } from "./middlewares/errorHandler";
 import cors from "cors";
 const app = express();
 const DB_URL = process.env.MONGO_URL as string;
-mongoose
-  .connect(DB_URL)
-  .then(() => console.log("connected to database"))
-  .catch((err) => {
-    console.log(err);
-  });
+if (mongoose.connection.readyState === 0) {
+  mongoose
+    .connect(DB_URL)
+    .then(() => console.log("connected to database"))
+    .catch((err) => {
+      console.log(err);
+    });
+}
 const frontendUrl = process.env.CLIENT_URL || "http://localhost:5173";
 const allowedOrigins = [
   "http://localhost:5173",
@@ -81,6 +83,10 @@ app.use(scrapeRouter);
 app.use(sendMailsRouter);
 app.use(usersRouter);
 app.use(errorHandler);
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`server running on port ${PORT}`);
+  });
+}
+
+export default app;
